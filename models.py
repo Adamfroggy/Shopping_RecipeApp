@@ -1,0 +1,1 @@
+# Add your database models here" > models.py
