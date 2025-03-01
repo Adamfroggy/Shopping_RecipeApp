@@ -22,5 +22,13 @@ def recipe_list():
     return render_template('recipes.html', recipes=recipes)
 
 
+@app.route('/recipe/<string:name>')
+def recipe_detail(name):
+    recipe = next((r for r in recipes if r.name == name), None)
+    if recipe:
+        return render_template('recipe_detail.html', recipe=recipe)
+    return "Recipe not found", 404
+
+
 if __name__ == '__main__':
     app.run(debug=True)
