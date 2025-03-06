@@ -1,1 +1,7 @@
-echo "<!DOCTYPE html>\n<html>\n<head><title>Recipes</title></head>\n<body>\n<h1>Recipe List</h1>\n<ul>{% for recipe in recipes %}\n    <li><strong>{{ recipe.name }}</strong>: {{ recipe.ingredients|join(', ') }} - {{ recipe.instructions }}</li>\n{% endfor %}\n</ul>\n</body>\n</html>" > templates/recipes.html
+<nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/recipes">Recipes</a></li>
+        <li><a href="/search">Search</a></li>
+    </ul>
+</nav>
