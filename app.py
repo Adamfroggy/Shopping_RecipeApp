@@ -17,6 +17,16 @@ def home():
     return render_template('home.html')
 
 
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    query = request.form.get('query') if request.method == 'POST' else ''
+    filtered_recipes = [recipe for recipe in recipes
+                        if query.lower() in recipe.name.lower()]
+    return render_template('search.html',
+                           recipes=filtered_recipes, query=query)
+
+
+
 @app.route('/recipes')
 def recipe_list():
     return render_template('recipes.html', recipes=recipes)
