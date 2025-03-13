@@ -51,6 +51,17 @@ def recipe_list():
     return render_template('recipes.html', recipes=recipes)
 
 
+@app.route('/recipes')
+def recipes():
+    page = request.args.get('page', 1, type=int)
+    recipes_per_page = 5
+    start = (page - 1) * recipes_per_page
+    end = start + recipes_per_page
+    paginated_recipes = recipes[start:end]
+    return render_template('recipes.html',
+                           recipes=paginated_recipes, page=page)
+
+
 @app.route('/recipe/<string:name>')
 def recipe_detail(name):
     recipe = next((r for r in recipes if r.name == name), None)
