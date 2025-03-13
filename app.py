@@ -26,6 +26,19 @@ def search():
                            recipes=filtered_recipes, query=query)
 
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        # Validate credentials (this is just a simple example)
+        if username == 'admin' and password == 'password':
+            # Replace with real validation
+            return redirect(url_for('home'))
+        else:
+            flash('Invalid credentials, try again.')
+    return render_template('login.html')
+
 
 @app.route('/recipes')
 def recipe_list():
