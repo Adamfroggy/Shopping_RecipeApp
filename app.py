@@ -40,6 +40,12 @@ def login():
     return render_template('login.html')
 
 
+@app.route('/logout')
+def logout():
+    # This is just a placeholder for real session management
+    return redirect(url_for('home'))
+
+
 @app.route('/recipes')
 def recipe_list():
     return render_template('recipes.html', recipes=recipes)
