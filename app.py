@@ -13,6 +13,7 @@ def add_to_shopping_list():
     shopping_list.append(item)
     return redirect(url_for('shopping_list'))
 
+
 @app.route('/shopping_list')
 def view_shopping_list():
     return render_template('shopping_list.html', shopping_list=shopping_list)
@@ -25,6 +26,18 @@ recipes = [
     Recipe('Salad', ['lettuce', 'tomato', 'cucumber'],
            'Mix ingredients together')
 ]
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        name = request.form['name']
+        email = request.form['email']
+        message = request.form['message']
+        # Here you can implement logic to handle the message (e.g., send an email)
+        flash(f"Message received from {name}!")
+        return redirect(url_for('contact'))
+    return render_template('contact.html')
 
 
 @app.route('/')
