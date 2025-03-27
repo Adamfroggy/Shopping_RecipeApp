@@ -3,6 +3,21 @@ from models import Recipe
 
 app = Flask(__name__)
 
+
+shopping_list = []
+
+
+@app.route('/add_to_shopping_list', methods=['POST'])
+def add_to_shopping_list():
+    item = request.form['item']
+    shopping_list.append(item)
+    return redirect(url_for('shopping_list'))
+
+@app.route('/shopping_list')
+def view_shopping_list():
+    return render_template('shopping_list.html', shopping_list=shopping_list)
+
+
 # Hardcoded list of recipes
 recipes = [
     Recipe('Spaghetti', ['pasta', 'tomato sauce', 'cheese'],
