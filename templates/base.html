@@ -1,1 +1,5 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+<form action="{{ url_for('search') }}" method="post">
+    <input type="text" name="query" placeholder="Search for recipes...">
+    <button type="submit">Search</button>
+</form>
