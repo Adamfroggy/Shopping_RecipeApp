@@ -10,6 +10,28 @@ shopping_list = []
 
 recipe_ratings = {}
 
+# sample categories to the recipes
+recipes = [
+    {"name": "Pancakes", "category": "Breakfast"},
+    {"name": "Spaghetti", "category": "Dinner"},
+    {"name": "Chocolate Cake", "category": "Dessert"},
+]
+
+
+@app.route('/add_recipe', methods=['POST'])
+def add_recipe():
+    name = request.form['name']
+    category = request.form['category']
+    recipes.append({"name": name, "category": category})
+    return redirect(url_for('home'))
+
+
+@app.route('/categories')
+def categories():
+    # Get unique categories
+    categories = set([recipe['category'] for recipe in recipes])
+    return render_template('categories.html', categories=categories)
+
 
 @app.route('/rate_recipe', methods=['POST'])
 def rate_recipe():
