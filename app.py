@@ -99,7 +99,9 @@ def contact():
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    total_recipes = len(recipes)
+    return render_template('index.html', total_recipes=total_recipes,
+                           recipes=recipes)
 
 
 @app.route('/about')
