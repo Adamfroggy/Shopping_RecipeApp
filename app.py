@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 from models import Recipe
 
 app = Flask(__name__)
@@ -18,6 +19,20 @@ def rate_recipe():
         recipe_ratings[recipe_name] = []
     recipe_ratings[recipe_name].append(rating)
     return redirect(url_for('recipe_details', recipe_name=recipe_name))
+
+
+photos = UploadSet('photos', IMAGES)
+app.config['UPLOADED_PHOTOS_DEST'] = 'static/uploads'
+configure_uploads(app, photos)
+
+
+@app.route('/upload_image', methods=['POST'])
+def upload_image():
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        flash('Image uploaded successfully!')
+        return redirect(url_for('home'))
+    return 'No file uploaded', 400
 
 
 @app.route('/recipe_details/<recipe_name>')
