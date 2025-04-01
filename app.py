@@ -107,17 +107,13 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['GET'])
 def search():
-    query = request.form.get('query', '')
-    if query:
-        # Filter recipes based on query (this is a basic example)
-        filtered_recipes = [recipe for recipe in
-                            recipes if query.lower() in recipe['name'].lower()]
-    else:
-        filtered_recipes = recipes  # Return all if no query
-    return render_template('search_results.html',
-                           recipes=filtered_recipes, query=query)
+    query = request.args.get('query', '').lower()
+    filtered_recipes = [r for r in recipes if query in r['name'].lower()]
+    return render_template('search_results.html', recipes=filtered_recipes,
+                           query=query)
+
 
 
 
