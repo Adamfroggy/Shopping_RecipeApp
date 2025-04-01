@@ -7,6 +7,26 @@ app = Flask(__name__)
 shopping_list = []
 
 
+recipe_ratings = {}
+
+
+@app.route('/rate_recipe', methods=['POST'])
+def rate_recipe():
+    recipe_name = request.form['recipe_name']
+    rating = int(request.form['rating'])
+    if recipe_name not in recipe_ratings:
+        recipe_ratings[recipe_name] = []
+    recipe_ratings[recipe_name].append(rating)
+    return redirect(url_for('recipe_details', recipe_name=recipe_name))
+
+
+@app.route('/recipe_details/<recipe_name>')
+def recipe_details(recipe_name):
+    ratings = recipe_ratings.get(recipe_name, [])
+    avg_rating = sum(ratings) / len(ratings) if ratings else 0
+    return render_template('recipe_details.html', recipe_name=recipe_name, avg_rating=avg_rating, ratings=ratings)
+
+
 @app.route('/add_to_shopping_list', methods=['POST'])
 def add_to_shopping_list():
     item = request.form['item']
