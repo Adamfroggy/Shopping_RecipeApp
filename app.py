@@ -11,9 +11,10 @@ shopping_list = []
 recipe_ratings = {}
 
 # sample categories to the recipes
+
 recipes = [
-    {"name": "Pancakes", "category": "Breakfast", "ingredients": ["Flour", "Eggs", "Milk"], "instructions": "Mix ingredients and cook on a hot griddle."},
-    {"name": "Spaghetti", "category": "Dinner", "ingredients": ["Pasta", "Tomato Sauce", "Cheese"], "instructions": "Boil pasta and add sauce."},
+    {"name": "Pancakes", "category": "Breakfast", "rating": 4.5, "ingredients": ["Flour", "Eggs", "Milk"], "instructions": "Mix ingredients and cook on a hot griddle."},
+    {"name": "Spaghetti", "category": "Dinner", "rating": 4.0, "ingredients": ["Pasta", "Tomato Sauce", "Cheese"], "instructions": "Boil pasta and add sauce."},
 ]
 
 
@@ -21,6 +22,14 @@ recipes = [
 def recipe_details(recipe_name):
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
     return render_template('recipe_details.html', recipe=recipe)
+
+
+@app.route('/rate_recipe/<recipe_name>/<float:rating>')
+def rate_recipe(recipe_name, rating):
+    recipe = next((r for r in recipes if r['name'] == recipe_name), None)
+    if recipe:
+        recipe['rating'] = rating
+    return redirect(url_for('recipe_details', recipe_name=recipe_name))
 
 
 @app.route('/add_recipe', methods=['POST'])
