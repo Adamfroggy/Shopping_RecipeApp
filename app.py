@@ -12,10 +12,15 @@ recipe_ratings = {}
 
 # sample categories to the recipes
 recipes = [
-    {"name": "Pancakes", "category": "Breakfast"},
-    {"name": "Spaghetti", "category": "Dinner"},
-    {"name": "Chocolate Cake", "category": "Dessert"},
+    {"name": "Pancakes", "category": "Breakfast", "ingredients": ["Flour", "Eggs", "Milk"], "instructions": "Mix ingredients and cook on a hot griddle."},
+    {"name": "Spaghetti", "category": "Dinner", "ingredients": ["Pasta", "Tomato Sauce", "Cheese"], "instructions": "Boil pasta and add sauce."},
 ]
+
+
+@app.route('/recipe_details/<recipe_name>')
+def recipe_details(recipe_name):
+    recipe = next((r for r in recipes if r['name'] == recipe_name), None)
+    return render_template('recipe_details.html', recipe=recipe)
 
 
 @app.route('/add_recipe', methods=['POST'])
