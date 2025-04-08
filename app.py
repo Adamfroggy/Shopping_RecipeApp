@@ -117,6 +117,11 @@ def search():
                            query=query)
 
 
+@app.route('/remove_recipe/<recipe_name>')
+def remove_recipe(recipe_name):
+    global recipes
+    recipes = [r for r in recipes if r['name'] != recipe_name]
+    return redirect(url_for('home'))
 
 
 @app.route('/login', methods=['GET', 'POST'])
