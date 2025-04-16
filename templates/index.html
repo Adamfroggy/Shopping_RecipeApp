@@ -1,2 +1,3 @@
 echo "<p>Total Recipes: {{ total_recipes }}</p>" >> templates/index.html
 echo "{% for recipe in recipes %}\n    <a href='/remove_recipe/{{ recipe['name'] }}'>Remove</a>\n{% endfor %}" >> templates/index.html
+echo "<a href='/sort_recipes/name'>Sort by Name</a> | <a href='/sort_recipes/category'>Sort by Category</a>" >> templates/index.html
