@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from models import Recipe
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -13,9 +14,22 @@ recipe_ratings = {}
 # sample categories to the recipes
 
 recipes = [
-    {"name": "Pancakes", "category": "Breakfast", "rating": 4.5, "ingredients": ["Flour", "Eggs", "Milk"], "instructions": "Mix ingredients and cook on a hot griddle."},
-    {"name": "Spaghetti", "category": "Dinner", "rating": 4.0, "ingredients": ["Pasta", "Tomato Sauce", "Cheese"], "instructions": "Boil pasta and add sauce."},
+    {"name": "Pancakes", "category": "Breakfast",
+     "last_updated": datetime.now(),
+     "ingredients": ["Flour", "Eggs", "Milk"],
+     "instructions": "Mix ingredients and cook on a hot griddle."},
+    {"name": "Spaghetti", "category": "Dinner", "last_updated": datetime.now(),
+        "ingredients": ["Pasta", "Tomato Sauce", "Cheese"],
+        "instructions": "Boil pasta and add sauce."},
 ]
+
+
+@app.route('/update_recipe/<recipe_name>')
+def update_recipe(recipe_name):
+    recipe = next((r for r in recipes if r['name'] == recipe_name), None)
+    if recipe:
+        recipe['last_updated'] = datetime.now()
+    return redirect(url_for('recipe_details', recipe_name=recipe_name))
 
 
 @app.route('/recipe_details/<recipe_name>')
