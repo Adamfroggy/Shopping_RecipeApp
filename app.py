@@ -71,13 +71,6 @@ def upload_image():
     return 'No file uploaded', 400
 
 
-@app.route('/recipe_details/<recipe_name>')
-def recipe_details(recipe_name):
-    ratings = recipe_ratings.get(recipe_name, [])
-    avg_rating = sum(ratings) / len(ratings) if ratings else 0
-    return render_template('recipe_details.html', recipe_name=recipe_name, avg_rating=avg_rating, ratings=ratings)
-
-
 @app.route('/add_to_shopping_list', methods=['POST'])
 def add_to_shopping_list():
     item = request.form['item']
