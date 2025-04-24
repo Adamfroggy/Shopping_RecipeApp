@@ -23,6 +23,15 @@ recipes = [
         "instructions": "Boil pasta and add sauce."},
 ]
 
+recipes = [
+    {"name": "Pancakes", "category": "Breakfast", "prep_time": "10 mins",
+     "ingredients": ["Flour", "Eggs", "Milk"], 
+     "instructions": "Mix ingredients and cook on a hot griddle."},
+    {"name": "Spaghetti", "category": "Dinner", "prep_time": "15 mins",
+     "ingredients": ["Pasta", "Tomato Sauce", "Cheese"],
+     "instructions": "Boil pasta and add sauce."},
+]
+
 
 @app.route('/update_recipe/<recipe_name>')
 def update_recipe(recipe_name):
