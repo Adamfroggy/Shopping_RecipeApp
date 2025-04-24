@@ -32,6 +32,13 @@ def update_recipe(recipe_name):
     return redirect(url_for('recipe_details', recipe_name=recipe_name))
 
 
+@app.route('/filter_by_category/<category>')
+def filter_by_category(category):
+    filtered_recipes = [r for r in recipes if r['category'].lower() ==
+                        category.lower()]
+    return render_template('index.html', recipes=filtered_recipes)
+
+
 @app.route('/recipe_details/<recipe_name>')
 def recipe_details(recipe_name):
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
