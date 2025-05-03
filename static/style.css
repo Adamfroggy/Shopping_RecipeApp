@@ -23,3 +23,9 @@ nav a {
 ul {
     list-style-type: none;
 }
+
+footer {
+    margin-top: 50px;
+    text-align: center;
+    color: #777;
+}
