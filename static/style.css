@@ -29,3 +29,8 @@ footer {
     text-align: center;
     color: #777;
 }
+.recipe-card:hover {
+    background-color: #f5f5f5;
+    transform: scale(1.02);
+    transition: 0.3s ease;
+}
