@@ -4,3 +4,7 @@ echo "<p><strong>Ingredients:</strong></p>\n<ul>\n{% for ingredient in recipe['i
 echo "<p><strong>Rating:</strong> {{ recipe['rating'] }}</p>\n<a href='/rate_recipe/{{ recipe['name'] }}/5'>Rate 5 Stars</a>" >> templates/recipe_details.html
 echo "<p><strong>Last Updated:</strong> {{ recipe['last_updated'].strftime('%Y-%m-%d %H:%M:%S') }}</p>" >> templates/recipe_details.html
 echo "<p><strong>Instructions:</strong></p>\n<ol>\n{% for step in recipe['instructions'].split('.') if step %}\n    <li>{{ step }}</li>\n{% endfor %}\n</ol>" >> templates/recipe_details.html
+<form>
+    <button disabled title="Coming soon!">Add to Shopping List</button>
+  </form>
+  
