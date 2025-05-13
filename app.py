@@ -60,6 +60,15 @@ def sort_recipes():
     return render_template('index.html', recipes=sorted_recipes)
 
 
+@app.route('/page/<int:page_num>')
+def paginate_recipes(page_num):
+    per_page = 5
+    start = (page_num - 1) * per_page
+    end = start + per_page
+    paginated_recipes = recipes[start:end]
+    return render_template('index.html', recipes=paginated_recipes, page_num=page_num)
+
+
 @app.route('/rate_recipe/<recipe_name>/<float:rating>')
 def rate_recipe(recipe_name, rating):
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
