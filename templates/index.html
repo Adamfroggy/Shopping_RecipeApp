@@ -10,3 +10,9 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
 <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
 <a href="/sort">Sort Recipes by Name</a>
 <img src="{{ recipe['image'] if recipe['image'] else '/static/placeholder.jpg' }}" alt="{{ recipe['name'] }}">
+<div>
+    {% if page_num > 1 %}
+        <a href="/page/{{ page_num - 1 }}">Previous</a>
+    {% endif %}
+    <a href="/page/{{ page_num + 1 }}">Next</a>
+</div>
