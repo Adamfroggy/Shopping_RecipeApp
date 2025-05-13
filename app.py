@@ -54,6 +54,12 @@ def recipe_details(recipe_name):
     return render_template('recipe_details.html', recipe=recipe)
 
 
+@app.route('/sort')
+def sort_recipes():
+    sorted_recipes = sorted(recipes, key=lambda x: x['name'].lower())
+    return render_template('index.html', recipes=sorted_recipes)
+
+
 @app.route('/rate_recipe/<recipe_name>/<float:rating>')
 def rate_recipe(recipe_name, rating):
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
