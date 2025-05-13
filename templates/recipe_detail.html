@@ -9,3 +9,10 @@ echo "<p><strong>Instructions:</strong></p>\n<ol>\n{% for step in recipe['instru
   </form>
   <a href="/" style="display: inline-block; margin-top: 20px;">← Back to Home</a>
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <h3>Rate this Recipe</h3>
+  <form>
+    <label for="rating">Rating (1-5):</label>
+    <input type="number" id="rating" name="rating" min="1" max="5" required>
+    <button type="submit">Submit</button>
+  </form>
+  
