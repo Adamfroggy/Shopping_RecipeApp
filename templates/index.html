@@ -16,3 +16,6 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
     {% endif %}
     <a href="/page/{{ page_num + 1 }}">Next</a>
 </div>
+<input type="text" name="q" id="search-input" placeholder="Search recipes">
+<button type="submit">Search</button>
+<button type="button" onclick="document.getElementById('search-input').value='';window.location='/'">Clear</button>
