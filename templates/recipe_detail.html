@@ -15,4 +15,4 @@ echo "<p><strong>Instructions:</strong></p>\n<ol>\n{% for step in recipe['instru
     <input type="number" id="rating" name="rating" min="1" max="5" required>
     <button type="submit">Submit</button>
   </form>
-  
+  <p><strong>Preparation Time:</strong> {{ recipe.get('prep_time', 'N/A') }}</p>
