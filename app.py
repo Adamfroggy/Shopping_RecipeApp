@@ -60,6 +60,11 @@ def sort_recipes():
     return render_template('index.html', recipes=sorted_recipes)
 
 
+@app.context_processor
+def inject_now():
+    return {'now': datetime.now()}
+
+
 @app.route('/page/<int:page_num>')
 def paginate_recipes(page_num):
     per_page = 5
