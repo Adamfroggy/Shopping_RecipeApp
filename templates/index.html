@@ -26,6 +26,7 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
 {% endif %}
 <p>Total Recipes: {{ recipe_count }}</p>
 <a href="/">Clear Filters</a>
+<p>{{ recipe.description or 'No description available.' }}</p>
 <footer>
   <p>Contact us: <a href="mailto:support@shoppingrecipeapp.com">support@shoppingrecipeapp.com</a></p>
 </footer>
