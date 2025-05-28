@@ -74,6 +74,11 @@ def paginate_recipes(page_num):
     return render_template('index.html', recipes=paginated_recipes, page_num=page_num)
 
 
+@app.route('/')
+def home():
+    return render_template('index.html', recipes=recipes, recipe_count=len(recipes))
+
+
 @app.route('/rate_recipe/<recipe_name>/<float:rating>')
 def rate_recipe(recipe_name, rating):
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
