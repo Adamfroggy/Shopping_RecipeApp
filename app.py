@@ -77,7 +77,11 @@ def paginate_recipes(page_num):
 
 @app.route('/')
 def home():
+    breakfast_count = sum(1 for r in recipes if r.get('category') == 'Breakfast')
+    dinner_count = sum(1 for r in recipes if r.get('category') == 'Dinner')
     return render_template('index.html', recipes=recipes,
+                           breakfast_count=breakfast_count,
+                           dinner_count=dinner_count,
                            recipe_count=len(recipes))
 
 
@@ -87,6 +91,7 @@ def rate_recipe(recipe_name, rating):
     if recipe:
         recipe['rating'] = rating
     return redirect(url_for('recipe_details', recipe_name=recipe_name))
+
 
 
 @app.route('/add_recipe', methods=['POST'])
