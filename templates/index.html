@@ -38,3 +38,4 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
 <footer style="text-align:center; margin-top:40px; font-size:0.9em; color:#666;">
   &copy; 2025 Shopping_RecipeApp. All rights reserved.
 </footer>
+<a href="/recipe/{{ recipe.id }}" title="Click to see details for {{ recipe.name }}">{{ recipe.name }}</a>
