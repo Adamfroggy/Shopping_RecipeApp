@@ -85,6 +85,12 @@ def home():
                            recipe_count=len(recipes))
 
 
+@app.route('/categories')
+def categories():
+    categories = list(set(r.get('category', 'Uncategorized') for r in recipes))
+    return render_template('categories.html', categories=categories)
+
+
 @app.route('/rate_recipe/<recipe_name>/<float:rating>')
 def rate_recipe(recipe_name, rating):
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
