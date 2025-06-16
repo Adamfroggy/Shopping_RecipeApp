@@ -33,6 +33,11 @@ recipes = [
 ]
 
 
+@app.route('/api/recipes')
+def api_recipes():
+    return jsonify(recipes)
+
+
 @app.route('/update_recipe/<recipe_name>')
 def update_recipe(recipe_name):
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
