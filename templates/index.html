@@ -40,3 +40,12 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
 </footer>
 <a href="/recipe/{{ recipe.id }}" title="Click to see details for {{ recipe.name }}">{{ recipe.name }}</a>
 <a href="/categories">View All Categories</a>
+<form method="get" action="/">
+  <label for="category">Filter by category:</label>
+  <select name="category" id="category" onchange="this.form.submit()">
+    <option value="">All</option>
+    {% for cat in categories %}
+      <option value="{{ cat }}" {% if request.args.get('category') == cat %}selected{% endif %}>{{ cat }}</option>
+    {% endfor %}
+  </select>
+</form>
