@@ -77,7 +77,14 @@ def paginate_recipes(page_num):
 
 @app.route('/')
 def home():
-    breakfast_count = sum(1 for r in recipes if r.get('category') == 'Breakfast')
+    selected_category = request.args.get('category', '')
+    if selected_category:
+        filtered = [r for r in recipes if r.get('category') == selected_category]
+    else:
+        filtered = recipes
+    categories = list(set(r.get('category', 'Uncategorized') for r in recipes))
+    breakfast_count = sum(1 for r in recipes if r.get('category')
+                          == 'Breakfast')
     dinner_count = sum(1 for r in recipes if r.get('category') == 'Dinner')
     return render_template('index.html', recipes=recipes,
                            breakfast_count=breakfast_count,
@@ -106,23 +113,6 @@ def add_recipe():
     category = request.form['category']
     recipes.append({"name": name, "category": category})
     return redirect(url_for('home'))
-
-
-@app.route('/categories')
-def categories():
-    # Get unique categories
-    categories = set([recipe['category'] for recipe in recipes])
-    return render_template('categories.html', categories=categories)
-
-
-@app.route('/rate_recipe', methods=['POST'])
-def rate_recipe():
-    recipe_name = request.form['recipe_name']
-    rating = int(request.form['rating'])
-    if recipe_name not in recipe_ratings:
-        recipe_ratings[recipe_name] = []
-    recipe_ratings[recipe_name].append(rating)
-    return redirect(url_for('recipe_details', recipe_name=recipe_name))
 
 
 photos = UploadSet('photos', IMAGES)
