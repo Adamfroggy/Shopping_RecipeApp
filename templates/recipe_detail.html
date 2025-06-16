@@ -20,4 +20,4 @@ echo "<p><strong>Instructions:</strong></p>\n<ol>\n{% for step in recipe['instru
   <form action="#" method="post">
     <button type="submit">❤️ Favorite</button>
   </form>
-  
+  <p><strong>Difficulty:</strong> {{ recipe.get('difficulty', 'Unknown') }}</p>
