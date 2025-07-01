@@ -1,6 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, request, redirect, \
+    url_for ,flash
 from flask_uploads import UploadSet, configure_uploads, IMAGES
-from models import Recipe
 from datetime import datetime
 
 app = Flask(__name__)
@@ -13,23 +13,25 @@ recipe_ratings = {}
 
 # sample categories to the recipes
 
-recipes = [
-    {"name": "Pancakes", "category": "Breakfast",
-     "last_updated": datetime.now(),
-     "ingredients": ["Flour", "Eggs", "Milk"],
-     "instructions": "Mix ingredients and cook on a hot griddle."},
-    {"name": "Spaghetti", "category": "Dinner", "last_updated": datetime.now(),
-        "ingredients": ["Pasta", "Tomato Sauce", "Cheese"],
-        "instructions": "Boil pasta and add sauce."},
-]
+
+class Recipe:
+    def __init__(self, name, ingredients, instructions, category=None,
+                 prep_time=None):
+        self.name = name
+        self.ingredients = ingredients
+        self.instructions = instructions
+        self.category = category
+        self.prep_time = prep_time
+
 
 recipes = [
-    {"name": "Pancakes", "category": "Breakfast", "prep_time": "10 mins",
-     "ingredients": ["Flour", "Eggs", "Milk"], 
-     "instructions": "Mix ingredients and cook on a hot griddle."},
-    {"name": "Spaghetti", "category": "Dinner", "prep_time": "15 mins",
-     "ingredients": ["Pasta", "Tomato Sauce", "Cheese"],
-     "instructions": "Boil pasta and add sauce."},
+    Recipe('Spaghetti', ['pasta', 'tomato sauce', 'cheese'],
+           'Boil pasta, add sauce, top with cheese', category='Dinner'),
+    Recipe('Salad', ['lettuce', 'tomato', 'cucumber'],
+           'Mix ingredients together', category='Lunch'),
+    Recipe('Pancakes', ['Flour', 'Eggs', 'Milk'],
+           'Mix ingredients and cook on a hot griddle.', category='Breakfast', 
+           prep_time='10 mins'),
 ]
 
 
