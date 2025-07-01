@@ -40,6 +40,15 @@ def api_recipes():
     return jsonify(recipes)
 
 
+@app.route('/recipe_details/<recipe_name>')
+def recipe_details(recipe_name):
+    recipe = next((r for r in recipes if r.name == recipe_name), None)
+    if recipe:
+        return render_template('recipe_details.html', recipe=recipe)
+    else:
+        return "Recipe not found", 404
+
+
 @app.route('/update_recipe/<recipe_name>')
 def update_recipe(recipe_name):
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
