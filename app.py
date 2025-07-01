@@ -40,6 +40,11 @@ def api_recipes():
     return jsonify(recipes)
 
 
+@app.route('/add_recipe', methods=['GET'])
+def add_recipe_form():
+    return render_template('add_recipe.html')
+
+
 @app.route('/recipe_details/<recipe_name>')
 def recipe_details(recipe_name):
     recipe = next((r for r in recipes if r.name == recipe_name), None)
