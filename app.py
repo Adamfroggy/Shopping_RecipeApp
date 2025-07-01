@@ -121,10 +121,17 @@ def categories():
 
 @app.route('/rate_recipe/<recipe_name>/<float:rating>')
 def rate_recipe(recipe_name, rating):
+    if rating < 1 or rating > 5:
+        flash('Rating must be between 1 and 5.')
+        return redirect(url_for('recipe_details', recipe_name=recipe_name))
     recipe = next((r for r in recipes if r['name'] == recipe_name), None)
     if recipe:
         recipe['rating'] = rating
+        flash(f'You rated {recipe_name} {rating} stars!')
+    else:
+        flash('Recipe not found.')
     return redirect(url_for('recipe_details', recipe_name=recipe_name))
+
 
 
 
