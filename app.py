@@ -133,6 +133,10 @@ def rate_recipe(recipe_name, rating):
     return redirect(url_for('recipe_details', recipe_name=recipe_name))
 
 
+@app.route('/clear_favorites')
+def clear_favorites():
+    favorite_recipes.clear()
+    return redirect(url_for('home'))
 
 
 @app.route('/add_recipe', methods=['POST'])
