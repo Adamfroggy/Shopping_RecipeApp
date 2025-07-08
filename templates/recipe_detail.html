@@ -21,3 +21,20 @@ echo "<p><strong>Instructions:</strong></p>\n<ol>\n{% for step in recipe['instru
     <button type="submit">❤️ Favorite</button>
   </form>
   <p><strong>Difficulty:</strong> {{ recipe.get('difficulty', 'Unknown') }}</p>
+  <a href="#" class="edit-button">Edit Recipe</a>
+
+  <style>
+    .edit-button {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 8px 12px;
+      background-color: #2196F3;
+      color: white;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+    .edit-button:hover {
+      background-color: #0b7dda;
+    }
+  </style>
+  
