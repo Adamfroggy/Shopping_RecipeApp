@@ -58,3 +58,10 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
   <a href="/">Home</a>
   <!-- other nav links -->
 </nav>
+{% set query = request.args.get('q', '') %}
+{% for recipe in recipes %}
+  <h2>
+    {{ recipe.name | replace(query, '<mark>' + query + '</mark>') | safe }}
+  </h2>
+  <!-- recipe details -->
+{% endfor %}
