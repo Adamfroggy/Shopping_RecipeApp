@@ -50,3 +50,11 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
   </select>
 </form>
 <a href="/" class="button">Reset Filters</a>
+<footer>
+  <p>Last updated: {{ now.strftime('%Y-%m-%d %H:%M UTC') }}</p>
+</footer>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <a href="/">Home</a>
+  <!-- other nav links -->
+</nav>
