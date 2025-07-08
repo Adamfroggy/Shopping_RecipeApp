@@ -65,3 +65,26 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
   </h2>
   <!-- recipe details -->
 {% endfor %}
+<button onclick="window.scrollTo({top: 0, behavior: 'smooth'});" id="scrollTopBtn">↑ Top</button>
+
+<style>
+  #scrollTopBtn {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    display: none;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+
+<script>
+  window.onscroll = function() {
+    const btn = document.getElementById('scrollTopBtn');
+    btn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? 'block' : 'none';
+  };
+</script>
