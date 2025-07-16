@@ -88,3 +88,10 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
     btn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? 'block' : 'none';
   };
 </script>
+{% if featured %}
+  <div class="featured">
+    <h2>🍽️ Recipe of the Day: {{ featured.name }}</h2>
+    <p>{{ featured.instructions }}</p>
+  </div>
+{% endif %}
+
