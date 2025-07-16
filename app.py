@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, request, redirect, \
     url_for ,flash
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from datetime import datetime
+import random
 
 app = Flask(__name__)
 
@@ -52,6 +53,7 @@ def recipe_details(recipe_name):
         return render_template('recipe_details.html', recipe=recipe)
     else:
         return "Recipe not found", 404
+    
 
 
 @app.route('/update_recipe/<recipe_name>')
@@ -99,18 +101,35 @@ def paginate_recipes(page_num):
 @app.route('/')
 def home():
     selected_category = request.args.get('category', '')
+
+    # Filter by category
     if selected_category:
-        filtered = [r for r in recipes if r.get('category') == selected_category]
+        filtered = [r for r in recipes if r.get('category') 
+                    == selected_category]
     else:
         filtered = recipes
+
+    # Get categories from all recipes
     categories = list(set(r.get('category', 'Uncategorized') for r in recipes))
-    breakfast_count = sum(1 for r in recipes if r.get('category')
+
+    # Counts
+    breakfast_count = sum(1 for r in recipes if r.get('category') 
                           == 'Breakfast')
     dinner_count = sum(1 for r in recipes if r.get('category') == 'Dinner')
-    return render_template('index.html', recipes=recipes,
-                           breakfast_count=breakfast_count,
-                           dinner_count=dinner_count,
-                           recipe_count=len(recipes))
+
+    # Recipe of the Day (from the full recipe list, not filtered)
+    featured = random.choice(recipes) if recipes else None
+
+    return render_template(
+        'index.html',
+        recipes=filtered,
+        featured=featured,
+        breakfast_count=breakfast_count,
+        dinner_count=dinner_count,
+        recipe_count=len(recipes),
+        categories=categories,
+        selected_category=selected_category
+    )
 
 
 @app.route('/categories')
