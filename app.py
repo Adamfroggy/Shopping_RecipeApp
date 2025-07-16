@@ -53,7 +53,6 @@ def recipe_details(recipe_name):
         return render_template('recipe_details.html', recipe=recipe)
     else:
         return "Recipe not found", 404
-    
 
 
 @app.route('/update_recipe/<recipe_name>')
@@ -69,12 +68,6 @@ def filter_by_category(category):
     filtered_recipes = [r for r in recipes if r['category'].lower() ==
                         category.lower()]
     return render_template('index.html', recipes=filtered_recipes)
-
-
-@app.route('/recipe_details/<recipe_name>')
-def recipe_details(recipe_name):
-    recipe = next((r for r in recipes if r['name'] == recipe_name), None)
-    return render_template('recipe_details.html', recipe=recipe)
 
 
 @app.route('/sort')
