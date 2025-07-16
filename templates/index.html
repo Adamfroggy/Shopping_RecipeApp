@@ -97,3 +97,17 @@ echo "<p><strong>Prep Time:</strong> {{ recipe['prep_time'] }}</p>" >> templates
 <meta name="description" content="Browse and discover new recipes with Shopping_RecipeApp!">
 <meta name="keywords" content="recipes, cooking, shopping list, food">
 <meta name="author" content="Shopping_RecipeApp Team">
+<button onclick="toggleDarkMode()">Toggle Dark Mode</button>
+
+<script>
+function toggleDarkMode() {
+  document.body.classList.toggle("dark-mode");
+}
+</script>
+
+<style>
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+</style>
