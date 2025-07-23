@@ -37,7 +37,8 @@ recipes = [
 
 
 class Recipe:
-    def __init__(self, name, ingredients, instructions, category=None, prep_time=None, last_updated=None):
+    def __init__(self, name, ingredients, instructions, category=None,
+                 prep_time=None, last_updated=None):
         self.name = name
         self.ingredients = ingredients
         self.instructions = instructions
