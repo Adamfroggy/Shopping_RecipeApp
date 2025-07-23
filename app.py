@@ -184,15 +184,9 @@ def upload_image():
     return 'No file uploaded', 400
 
 
-@app.route('/sort_recipes/<sort_by>')
-def sort_recipes(sort_by):
-    if sort_by == "name":
-        sorted_recipes = sorted(recipes, key=lambda x: x['name'])
-    elif sort_by == "category":
-        sorted_recipes = sorted(recipes, key=lambda x: x['category'])
-    else:
-        sorted_recipes = recipes
-    return render_template('index.html', recipes=sorted_recipes)
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 
 @app.route('/add_to_shopping_list', methods=['POST'])
