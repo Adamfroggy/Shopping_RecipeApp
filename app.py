@@ -36,6 +36,16 @@ recipes = [
 ]
 
 
+class Recipe:
+    def __init__(self, name, ingredients, instructions, category=None, prep_time=None, last_updated=None):
+        self.name = name
+        self.ingredients = ingredients
+        self.instructions = instructions
+        self.category = category
+        self.prep_time = prep_time
+        self.last_updated = last_updated or "Unknown"
+
+
 @app.route('/api/recipes')
 def api_recipes():
     return jsonify(recipes)
