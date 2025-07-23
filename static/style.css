@@ -72,4 +72,9 @@ button {
   .pagination a:hover {
     background-color: #45a049;
   }
-  
+  /* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
