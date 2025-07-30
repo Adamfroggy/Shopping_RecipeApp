@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request, redirect, \
-    url_for ,flash
+    url_for, flash, session
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from datetime import datetime
 import random
@@ -45,6 +45,25 @@ class Recipe:
         self.category = category
         self.prep_time = prep_time
         self.last_updated = last_updated or "Unknown"
+
+
+app.secret_key = 'your_secret_key'
+
+
+@app.route('/add_to_shopping_list/<recipe_name>', methods=['POST'])
+def add_to_shopping_list(recipe_name):
+    recipe = next((r for r in recipes if r['name'] == recipe_name), None)
+    if not recipe:
+        return "Recipe not found", 404
+
+    # Initialize list if it doesn't exist
+    if 'shopping_list' not in session:
+        session['shopping_list'] = []
+
+    # Add ingredients to the shopping list
+    session['shopping_list'] += recipe.get('ingredients', [])
+    session.modified = True
+    return redirect(url_for('shopping_list'))
 
 
 @app.route('/api/recipes')
