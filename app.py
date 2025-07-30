@@ -66,6 +66,12 @@ def add_to_shopping_list(recipe_name):
     return redirect(url_for('shopping_list'))
 
 
+@app.route('/clear_shopping_list', methods=['POST'])
+def clear_shopping_list():
+    session.pop('shopping_list', None)
+    return redirect(url_for('shopping_list'))
+
+
 @app.route('/api/recipes')
 def api_recipes():
     return jsonify(recipes)
