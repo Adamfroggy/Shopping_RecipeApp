@@ -10,3 +10,14 @@ echo "<!DOCTYPE html>\n<html>\n<head><title>Shopping List</title></head>\n<body>
 <form action="{{ url_for('clear_shopping_list') }}" method="post">
   <button type="submit">Clear Shopping List</button>
 </form>
+<ul>
+    {% for item in items %}
+      <li>
+        {{ item }}
+        <form action="{{ url_for('remove_from_shopping_list', item=item) }}" method="post" style="display:inline;">
+          <button type="submit">Remove</button>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+  
