@@ -72,6 +72,15 @@ def add_to_shopping_list(recipe_name):
     session.modified = True
     return redirect(url_for('shopping_list'))
 
+@app.route('/remove_from_shopping_list/<item>', methods=['POST'])
+def remove_from_shopping_list(item):
+    shopping_list = session.get('shopping_list', [])
+    if item in shopping_list:
+        shopping_list.remove(item)
+        session['shopping_list'] = shopping_list
+        session.modified = True
+    return redirect(url_for('shopping_list'))
+
 
 @app.route('/clear_shopping_list', methods=['POST'])
 def clear_shopping_list():
