@@ -3,11 +3,9 @@ from flask import Flask, render_template, jsonify, request, redirect, \
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from datetime import datetime
 import random
+from collections import Counter
 
 app = Flask(__name__)
-
-
-shopping_list = []
 
 
 recipe_ratings = {}
@@ -48,6 +46,15 @@ class Recipe:
 
 
 app.secret_key = 'your_secret_key'
+
+
+@app.route('/shopping_list')
+def shopping_list():
+    items = session.get('shopping_list', [])
+    # Aggregate counts, assuming ingredients are simple strings
+    counts = Counter(items)
+    aggregated_items = [f"{qty} x {item}" if qty > 1 else item for item, qty in counts.items()]
+    return render_template('shopping_list.html', items=aggregated_items)
 
 
 @app.route('/add_to_shopping_list/<recipe_name>', methods=['POST'])
@@ -209,18 +216,6 @@ def upload_image():
     return 'No file uploaded', 400
 
 
-@app.route('/contact')
-def contact():
-    return render_template('contact.html')
-
-
-@app.route('/add_to_shopping_list', methods=['POST'])
-def add_to_shopping_list():
-    item = request.form['item']
-    shopping_list.append(item)
-    return redirect(url_for('shopping_list'))
-
-
 @app.route('/shopping_list')
 def view_shopping_list():
     return render_template('shopping_list.html', shopping_list=shopping_list)
@@ -245,13 +240,6 @@ def contact():
         flash(f"Message received from {name}!")
         return redirect(url_for('contact'))
     return render_template('contact.html')
-
-
-@app.route('/')
-def home():
-    total_recipes = len(recipes)
-    return render_template('index.html', total_recipes=total_recipes,
-                           recipes=recipes)
 
 
 @app.route('/about')
