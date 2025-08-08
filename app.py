@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request, redirect, \
-    url_for, flash, session
+    url_for, flash, session, Response
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 from datetime import datetime
 import random
@@ -86,6 +86,17 @@ def remove_from_shopping_list(item):
 def clear_shopping_list():
     session.pop('shopping_list', None)
     return redirect(url_for('shopping_list'))
+
+
+@app.route('/download_shopping_list')
+def download_shopping_list():
+    items = session.get('shopping_list', [])
+    text = "\n".join(items)
+    return Response(
+        text,
+        mimetype="text/plain",
+        headers={"Content-Disposition": "attachment;filename=shopping_list.txt"}
+    )
 
 
 @app.route('/api/recipes')
