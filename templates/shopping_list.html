@@ -23,4 +23,15 @@ echo "<!DOCTYPE html>\n<html>\n<head><title>Shopping List</title></head>\n<body>
   <a href="{{ url_for('download_shopping_list') }}" download>
     <button>Download Shopping List as TXT</button>
   </a>
+  <ul>
+    {% for item in items %}
+      <li>
+        <form action="{{ url_for('toggle_bought', item=item) }}" method="post" style="display:inline;">
+          <input type="checkbox" name="bought" onchange="this.form.submit()"
+            {% if item in session.get('bought_items', []) %}checked{% endif %}>
+          {{ item }}
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
   
