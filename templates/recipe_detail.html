@@ -42,5 +42,12 @@ echo "<p><strong>Instructions:</strong></p>\n<ol>\n{% for step in recipe['instru
   <form action="{{ url_for('add_to_shopping_list', recipe_name=recipe.name) }}" method="post">
     <button type="submit">Add to Shopping List</button>
   </form>
+  <ul>
+    {% for ingredient in recipe.ingredients %}
+      <li {% if ingredient in session.get('shopping_list', []) %}style="color:green;"{% endif %}>
+        {{ ingredient }}
+      </li>
+    {% endfor %}
+  </ul>
   
 
