@@ -51,9 +51,12 @@ app.secret_key = 'your_secret_key'
 @app.route('/shopping_list')
 def shopping_list():
     items = session.get('shopping_list', [])
-    # Aggregate counts, assuming ingredients are simple strings
+    # Aggregate duplicates
+    from collections import Counter
     counts = Counter(items)
     aggregated_items = [f"{qty} x {item}" if qty > 1 else item for item, qty in counts.items()]
+    # Sort alphabetically
+    aggregated_items.sort()
     return render_template('shopping_list.html', items=aggregated_items)
 
 
