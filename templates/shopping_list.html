@@ -34,11 +34,4 @@ echo "<!DOCTYPE html>\n<html>\n<head><title>Shopping List</title></head>\n<body>
       </li>
     {% endfor %}
   </ul>
-  <ul>
-    {% for ingredient in recipe.ingredients %}
-      <li {% if ingredient in session.get('shopping_list', []) %}style="color:green;"{% endif %}>
-        {{ ingredient }}
-      </li>
-    {% endfor %}
-  </ul>
   
