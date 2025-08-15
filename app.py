@@ -15,27 +15,6 @@ recipe_ratings = {}
 
 class Recipe:
     def __init__(self, name, ingredients, instructions, category=None,
-                 prep_time=None):
-        self.name = name
-        self.ingredients = ingredients
-        self.instructions = instructions
-        self.category = category
-        self.prep_time = prep_time
-
-
-recipes = [
-    Recipe('Spaghetti', ['pasta', 'tomato sauce', 'cheese'],
-           'Boil pasta, add sauce, top with cheese', category='Dinner'),
-    Recipe('Salad', ['lettuce', 'tomato', 'cucumber'],
-           'Mix ingredients together', category='Lunch'),
-    Recipe('Pancakes', ['Flour', 'Eggs', 'Milk'],
-           'Mix ingredients and cook on a hot griddle.', category='Breakfast', 
-           prep_time='10 mins'),
-]
-
-
-class Recipe:
-    def __init__(self, name, ingredients, instructions, category=None,
                  prep_time=None, last_updated=None):
         self.name = name
         self.ingredients = ingredients
@@ -43,6 +22,34 @@ class Recipe:
         self.category = category
         self.prep_time = prep_time
         self.last_updated = last_updated or "Unknown"
+
+
+recipes = [
+    Recipe(
+        name='Spaghetti',
+        ingredients=['pasta', 'tomato sauce', 'cheese'],
+        instructions='Boil pasta, add sauce, top with cheese',
+        category='Dinner',
+        prep_time='20 mins',
+        last_updated='2025-08-15'
+    ),
+    Recipe(
+        name='Salad',
+        ingredients=['lettuce', 'tomato', 'cucumber'],
+        instructions='Mix ingredients together',
+        category='Lunch',
+        prep_time='10 mins',
+        last_updated='2025-08-10'
+    ),
+    Recipe(
+        name='Pancakes',
+        ingredients=['flour', 'eggs', 'milk'],
+        instructions='Mix ingredients and cook on a hot griddle.',
+        category='Breakfast',
+        prep_time='10 mins',
+        last_updated='2025-08-12'
+    ),
+]
 
 
 app.secret_key = 'your_secret_key'
@@ -140,7 +147,6 @@ def filter_by_category(category):
 def sort_recipes():
     sorted_recipes = sorted(recipes, key=lambda x: x['name'].lower())
     return render_template('index.html', recipes=sorted_recipes)
-
 
 @app.route('/toggle_bought/<item>', methods=['POST'])
 def toggle_bought(item):
