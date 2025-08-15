@@ -52,9 +52,9 @@ app.secret_key = 'your_secret_key'
 def shopping_list():
     items = session.get('shopping_list', [])
     # Aggregate duplicates
-    from collections import Counter
     counts = Counter(items)
-    aggregated_items = [f"{qty} x {item}" if qty > 1 else item for item, qty in counts.items()]
+    aggregated_items = [f"{qty} x {item}" if qty > 1 else item for item,
+                        qty in counts.items()]
     # Sort alphabetically
     aggregated_items.sort()
     return render_template('shopping_list.html', items=aggregated_items)
@@ -140,6 +140,18 @@ def filter_by_category(category):
 def sort_recipes():
     sorted_recipes = sorted(recipes, key=lambda x: x['name'].lower())
     return render_template('index.html', recipes=sorted_recipes)
+
+
+@app.route('/toggle_bought/<item>', methods=['POST'])
+def toggle_bought(item):
+    bought = session.get('bought_items', [])
+    if item in bought:
+        bought.remove(item)
+    else:
+        bought.append(item)
+    session['bought_items'] = bought
+    session.modified = True
+    return redirect(url_for('shopping_list'))
 
 
 @app.context_processor
