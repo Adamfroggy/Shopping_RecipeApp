@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify, request, redirect, \
     url_for, flash, session, Response
 from flask_uploads import UploadSet, configure_uploads, IMAGES
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
 from collections import Counter
 
@@ -52,6 +52,28 @@ recipes = [
 ]
 
 
+# --- Flask Route (renamed to avoid conflict) ---
+@app.route('/recipes')
+def show_recipes():
+    query = request.args.get('q', '').lower()
+    category = request.args.get('category', '')
+    recent_days = request.args.get('recent', type=int)
+
+    filtered = recipes  # uses the Recipe list
+    if query:
+        filtered = [r for r in filtered if query in r.name.lower()]
+    if category:
+        filtered = [r for r in filtered if r.category == category]
+    if recent_days:
+        cutoff = datetime.now() - timedelta(days=recent_days)
+        filtered = [
+            r for r in filtered 
+            if r.last_updated != "Unknown" and datetime.strptime(r.last_updated, "%Y-%m-%d") >= cutoff
+        ]
+
+    return render_template('recipes.html', recipes=filtered)
+
+
 app.secret_key = 'your_secret_key'
 
 
@@ -81,6 +103,7 @@ def add_to_shopping_list(recipe_name):
     session['shopping_list'] += recipe.get('ingredients', [])
     session.modified = True
     return redirect(url_for('shopping_list'))
+
 
 @app.route('/remove_from_shopping_list/<item>', methods=['POST'])
 def remove_from_shopping_list(item):
