@@ -115,6 +115,18 @@ def remove_from_shopping_list(item):
     return redirect(url_for('shopping_list'))
 
 
+@app.route('/toggle_favorite/<recipe_name>', methods=['POST'])
+def toggle_favorite(recipe_name):
+    favorites = session.get('favorites', [])
+    if recipe_name in favorites:
+        favorites.remove(recipe_name)
+    else:
+        favorites.append(recipe_name)
+    session['favorites'] = favorites
+    session.modified = True
+    return redirect(url_for('recipes'))
+
+
 @app.route('/clear_shopping_list', methods=['POST'])
 def clear_shopping_list():
     session.pop('shopping_list', None)
