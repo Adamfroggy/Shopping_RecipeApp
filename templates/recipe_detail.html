@@ -49,5 +49,19 @@ echo "<p><strong>Instructions:</strong></p>\n<ol>\n{% for step in recipe['instru
       </li>
     {% endfor %}
   </ul>
-  
+  <h2>{{ recipe.name }}</h2>
+<p>Category: {{ recipe.category or "N/A" }}</p>
+<p>Prep Time: {{ recipe.prep_time or "Unknown" }}</p>
+<p>Last Updated: {{ recipe.last_updated }}</p>
+
+<h3>Ingredients:</h3>
+<ul>
+  {% for ingredient in recipe.ingredients %}
+    <li>{{ ingredient }}</li>
+  {% endfor %}
+</ul>
+
+<h3>Instructions:</h3>
+<p>{{ recipe.instructions }}</p>
+
 
