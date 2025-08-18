@@ -20,4 +20,13 @@
     </select>
     <button type="submit">Filter</button>
   </form>
-  
+  <ul>
+    {% for recipe in recipes %}
+      <li>
+        <a href="{{ url_for('recipe_details', recipe_name=recipe.name) }}">
+          {{ recipe.name }}
+        </a> 
+        - Last Updated: {{ recipe.last_updated }}
+      </li>
+    {% endfor %}
+  </ul>
